@@ -4,6 +4,7 @@ package com.cobook.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.kafka.KafkaProperties.Producer;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -56,7 +57,7 @@ public class EmployeeController {
     )
     public ResponseEntity<Object> signInEmployee(@RequestBody Employee employee){
         try{
-            Employee signInEmployee = employeeService.signInEmployee(employee);
+            Employee signInEmployee = employeeService.signInEmployee(employee.getCompanyEmail(),employee.getPassword());
             return new ResponseEntity<>(signInEmployee,HttpStatus.OK);
         }catch(Exception e){
             System.out.println(e.getMessage());
@@ -136,6 +137,25 @@ public class EmployeeController {
         }catch(Exception e){
             System.out.println(e.getMessage());
             return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
+        }catch(Error e){
+            System.out.println(e.getMessage());
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @RequestMapping(
+        value = "/getEmpolyeeCompanyEmail/{companyEmail}",
+        produces = MediaType.APPLICATION_JSON_VALUE,
+        method = RequestMethod.GET
+    )
+    public ResponseEntity<Object> getEmployeeCompanyEmail(@PathVariable String companyEmail){
+        try{
+           Employee getEmployeeCompanyEmail = employeeService.findByEmployeeCompanyEmail(companyEmail);
+           return new ResponseEntity<>(getEmployeeCompanyEmail,HttpStatus.OK);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
+        
         }catch(Error e){
             System.out.println(e.getMessage());
             return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);

@@ -19,8 +19,8 @@ public class EmployeeService {
         return employeeRepo.save(employee);
     }
 
-    public Employee signInEmployee(Employee employee){
-        return employeeRepo.getByCompanyEmailAndPassword(employee.getCompanyEmail(),employee.getPassword());
+    public Employee signInEmployee(String companyEmail, String password){
+        return employeeRepo.getByCompanyEmailAndPassword(companyEmail,password);
     }
 
     public List<Employee>viewAllEmployee(){
@@ -38,6 +38,9 @@ public class EmployeeService {
     }
     public void deleteEmployeeById(Long id){
         employeeRepo.deleteById(id);
+    }
+    public Employee findByEmployeeCompanyEmail(String companyEmail){
+        return employeeRepo.getCompanyEmail(companyEmail);
     }
     
 }
