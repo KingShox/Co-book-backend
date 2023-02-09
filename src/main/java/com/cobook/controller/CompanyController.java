@@ -152,6 +152,23 @@ public class CompanyController {
             
         }
     }
+    @RequestMapping(
+        value= "/getCompanyByName/{name}",
+        produces = MediaType.APPLICATION_JSON_VALUE,
+        method = RequestMethod.GET
+    )
+    public ResponseEntity<Object>getCompanyByName(@PathVariable String name){
+        try{
+            Company getCompanyByName = companyService.getCompanyByName(name);
+            return new ResponseEntity<>(getCompanyByName,HttpStatus.OK);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
+        }catch(Error e){
+            System.out.println(e.getMessage());
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
 
     

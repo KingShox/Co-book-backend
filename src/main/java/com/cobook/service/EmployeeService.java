@@ -27,6 +27,10 @@ public class EmployeeService {
         return employeeRepo.findAll();
     }
 
+    public Employee save(Employee employee){
+       return employeeRepo.save(employee);
+    }
+
     public Employee updateEmployeeById(Employee employee) throws Exception{
         if(employee.getId() == null){
             throw new Exception("EMPLOYEE NOT FOUN");

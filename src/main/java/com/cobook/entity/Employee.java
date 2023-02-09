@@ -1,75 +1,55 @@
 package com.cobook.entity;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 @Entity
-@Table(name="employee")
+@Table(name = "employee")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property =  "id")
 public class Employee {
     @Id
-    @Column(name="id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
-    @Column(name="first_name")
-    private String firstName;
+    @Column(name = "full_name")
+    private String fullName;
 
-    @Column(name="last_name")
-    private String lastName;
-
-    @Column(name="gender")
-    private String gender;
-
-    @Column(name="birthday")
-    private LocalDate birthday;
-
-    @Column(name="company_email")
+    @Column(name = "company_email")
     private String companyEmail;
 
-    @Column(name="personal_email")
-    private String personalEmail;
-
-    @Column(name="department")
-    private String department;
-
-    @Column(name="job_title")
-    private String jobTitle;
-
-    @Column(name="start_date")
-    private LocalDate startDate;
-
-    @Column(name="phone_number")
-    private String phoneNumber;
-
-    @Column(name="password")
+    @Column(name = "password")
     private String password;
 
-    @Column(name="confirm_passwprd")
-    private String confirmPassword;
+    @Column(name = "picture")
+    private String picture;
 
-
+    @OneToOne
+    @JoinColumn(name = "profile_id")
+    private Profile profile;
 
     @ManyToMany
-    @JoinTable(
-        name="employee_event",
-        joinColumns ={
-            @JoinColumn(name="employee_id", referencedColumnName = "id")
-        },
-        inverseJoinColumns ={
-            @JoinColumn(name="event_id", referencedColumnName = "id")
-        }
-    )
+    @JoinTable(name = "employee_event", joinColumns = {
+            @JoinColumn(name = "employee_id", referencedColumnName = "id")
+    }, inverseJoinColumns = {
+            @JoinColumn(name = "event_id", referencedColumnName = "id")
+    })
     List<Event> event;
-
-
-    
 
     public Employee() {
     }
@@ -78,40 +58,12 @@ public class Employee {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public String getFullName() {
+        return fullName;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public LocalDate getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(LocalDate birthday) {
-        this.birthday = birthday;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getCompanyEmail() {
@@ -122,46 +74,6 @@ public class Employee {
         this.companyEmail = companyEmail;
     }
 
-    public String getPersonalEmail() {
-        return personalEmail;
-    }
-
-    public void setPersonalEmail(String personalEmail) {
-        this.personalEmail = personalEmail;
-    }
-
-    public String getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(String department) {
-        this.department = department;
-    }
-
-    public String getJobTitle() {
-        return jobTitle;
-    }
-
-    public void setJobTitle(String jobTitle) {
-        this.jobTitle = jobTitle;
-    }
-
-    public LocalDate getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(LocalDate startDate) {
-        this.startDate = startDate;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
     public String getPassword() {
         return password;
     }
@@ -170,12 +82,20 @@ public class Employee {
         this.password = password;
     }
 
-    public String getConfirmPassword() {
-        return confirmPassword;
+    public String getPicture() {
+        return picture;
     }
 
-    public void setConfirmPassword(String confirmPassword) {
-        this.confirmPassword = confirmPassword;
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+
+    public Profile getProfile() {
+        return profile;
+    }
+
+    public void setProfile(Profile profile) {
+        this.profile = profile;
     }
 
     public List<Event> getEvent() {
@@ -188,20 +108,8 @@ public class Employee {
 
     @Override
     public String toString() {
-        return "Employee [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", gender=" + gender
-                + ", birthday=" + birthday + ", companyEmail=" + companyEmail + ", personalEmail=" + personalEmail
-                + ", department=" + department + ", jobTitle=" + jobTitle + ", startDate=" + startDate
-                + ", phoneNumber=" + phoneNumber + ", password=" + password + ", confirmPassword=" + confirmPassword
-                + "]";
+        return "Employee [id=" + id + ", fullName=" + fullName + ", companyEmail=" + companyEmail + ", password="
+                + password + ", picture=" + picture + ", profile=" + profile + ", event=" + event + "]";
     }
 
-    
-
-    
-
-
-
-
-
-    
 }

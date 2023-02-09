@@ -3,6 +3,8 @@ package com.cobook.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -13,8 +15,15 @@ public class Profile {
     @Column(name="profile_id")
     private Long id;
 
-    @Column(name="picture")
-    private String picture;
+    @Column(name="birthday")
+    private String birthday;
+
+    @Column(name="start_date")
+    private String startDate;
+
+    @Column(name="linkedin")
+    private String linkedin;
+
 
     @Column(name="education")
     private String education;
@@ -37,23 +46,45 @@ public class Profile {
     @Column(name="intersting_fact")
     private String interstingFact;
 
+    @Column(name="bio")
+    private String bio;
+
     public Profile() {
     }
+
+    @OneToOne
+    @JoinColumn(name="employee_id")
+
+    private Employee employee;
 
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    
+
+    public String getBirthday() {
+        return birthday;
     }
 
-    public String getPicture() {
-        return picture;
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
     }
 
-    public void setPicture(String picture) {
-        this.picture = picture;
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
+    public String getLinkedin() {
+        return linkedin;
+    }
+
+    public void setLinkedin(String linkedin) {
+        this.linkedin = linkedin;
     }
 
     public String getEducation() {
@@ -112,12 +143,38 @@ public class Profile {
         this.interstingFact = interstingFact;
     }
 
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
+
+
     @Override
     public String toString() {
-        return "Profile [id=" + id + ", picture=" + picture + ", education=" + education + ", hobbies=" + hobbies
-                + ", favoriteSport=" + favoriteSport + ", whereYouFrom=" + whereYouFrom + ", favoriteMusic="
-                + favoriteMusic + ", favoriteMovie=" + favoriteMovie + ", interstingFact=" + interstingFact + "]";
+        return "Profile [id=" + id + ", birthday=" + birthday + ", startDate=" + startDate + ", linkedin=" + linkedin
+                + ", education=" + education + ", hobbies=" + hobbies + ", favoriteSport=" + favoriteSport
+                + ", whereYouFrom=" + whereYouFrom + ", favoriteMusic=" + favoriteMusic + ", favoriteMovie="
+                + favoriteMovie + ", interstingFact=" + interstingFact + ", bio=" + bio + ", employee=" + employee
+                + "]";
     }
+
+   
+    
+    
+
+    
     
 
     

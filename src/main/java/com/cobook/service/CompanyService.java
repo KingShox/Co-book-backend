@@ -40,5 +40,16 @@ public class CompanyService {
     public void deleteCompanyById(Long id){
         companyRepo.deleteById(id);
     }
+    public Company getCompanyByName(String name) throws Exception{
+        
+        Company company = companyRepo.getCompanyByName(name);
+        if(company == null ){
+            throw new Exception("COMPANY NOT FOUND");
+        
+        }else{
+            return company;
+        }
+
+    }
     
 }

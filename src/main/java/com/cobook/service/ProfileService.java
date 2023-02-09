@@ -20,10 +20,11 @@ public class ProfileService {
         return profileRepo.save(profile);
     }
 
-    public List<Profile> viewProfile(){
-        return profileRepo.findAll();
-    }
+   public Profile updateProfile(Profile profile){
 
+        return profileRepo.save(profile);
+
+   }
     
     
 }

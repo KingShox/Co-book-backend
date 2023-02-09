@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cobook.entity.Employee;
 import com.cobook.entity.Event;
 import com.cobook.repo.EventRepo;
 
@@ -14,26 +15,40 @@ public class EventService {
     @Autowired
     EventRepo eventRepo;
 
-    public Event createEvent(Event event){
+    public Event createEvent(Event event) {
         return eventRepo.save(event);
     }
 
-    public Event updateEventById(Event event) throws Exception{
-        if(event.getId() == null){
+    public Event save(Event event) {
+        return eventRepo.save(event);
+    }
+
+    public Event updateEventById(Event event) throws Exception {
+        if (event.getId() == null) {
             throw new Exception("EVENT NOT FOUND");
         }
         return eventRepo.save(event);
     }
-    public Event getEventById(Long id){
+
+    public Event getEventById(Long id) {
         return eventRepo.findById(id).get();
     }
 
-    public List<Event>viewAllEvent(){
+    public List<Event> viewAllEvent() {
         return eventRepo.findAll();
     }
 
-    public void deleteEventById(Long id){
+    public void deleteEventById(Long id) {
         eventRepo.deleteById(id);
     }
-    
+
+    public Event addEmployee(Long eventId, Employee employee) {
+        Event event = getEventById(eventId);
+        event.getGuestList().add(employee);
+        save(event);
+
+        return event;
+
+    }
+
 }

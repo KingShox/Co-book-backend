@@ -4,7 +4,6 @@ package com.cobook.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.kafka.KafkaProperties.Producer;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -39,7 +38,7 @@ public class EmployeeController {
     public ResponseEntity<Object> registerEmployee(@RequestBody Employee employee){
         try {
             Employee registerEmployee = employeeService.registerEmployee(employee);
-            return new ResponseEntity<>(registerEmployee, HttpStatus.CREATED);
+            return new ResponseEntity<>(registerEmployee, HttpStatus.OK);
         }catch(Exception e){
             System.out.println(e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);

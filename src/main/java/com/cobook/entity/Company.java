@@ -54,6 +54,8 @@ public class Company {
     @JoinColumn(name="company_id", referencedColumnName = "id")
     private List<Event> events;
 
+
+
     public Company() {
     }
 

@@ -13,59 +13,57 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "event")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Event {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
+    @Column(name = "id")
     private Long id;
 
-    @Column(name="name")
+    @Column(name = "name")
     private String name;
 
-    @Column(name="venue")
+    @Column(name = "venue")
     private String venue;
 
-    @Column(name="theme")
+    @Column(name = "theme")
     private String theme;
 
-    @Column(name="day")
-    private LocalDate day;
+    @Column(name = "day")
+    private String day;
 
-    @Column(name="time")
+    @Column(name = "time")
     private String time;
 
-    @Column(name="type_of_event")
+    @Column(name = "type_of_event")
     private String typeOfEvent;
 
-    @Column(name="event_detail")
+    @Column(name = "event_detail")
     private String eventDetail;
 
-
     @ManyToMany
-    @JoinTable(
-        name="employee_event",
-        joinColumns ={
-            @JoinColumn(name="event_id", referencedColumnName = "id")
-        },
-        inverseJoinColumns ={
-            @JoinColumn(name="employee_id", referencedColumnName = "id")
-        }
-    )
-    List<Employee> event;
-
-
-
-    
+    @JoinTable(name = "employee_event", joinColumns = {
+            @JoinColumn(name = "event_id", referencedColumnName = "id")
+    }, inverseJoinColumns = {
+            @JoinColumn(name = "employee_id", referencedColumnName = "id")
+    })
+    List<Employee> guestList;
 
     public Event() {
     }
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -92,11 +90,11 @@ public class Event {
         this.theme = theme;
     }
 
-    public LocalDate getDay() {
+    public String getDay() {
         return day;
     }
 
-    public void setDay(LocalDate day) {
+    public void setDay(String day) {
         this.day = day;
     }
 
@@ -124,21 +122,19 @@ public class Event {
         this.eventDetail = eventDetail;
     }
 
-    public List<Employee> getEvent() {
-        return event;
+    public List<Employee> getGuestList() {
+        return guestList;
     }
 
-    public void setEvent(List<Employee> event) {
-        this.event = event;
+    public void setGuestList(List<Employee> guestList) {
+        this.guestList = guestList;
     }
 
     @Override
     public String toString() {
         return "Event [id=" + id + ", name=" + name + ", venue=" + venue + ", theme=" + theme + ", day=" + day
-                + ", time=" + time + ", typeOfEvent=" + typeOfEvent + ", eventDetail=" + eventDetail + "]";
+                + ", time=" + time + ", typeOfEvent=" + typeOfEvent + ", eventDetail=" + eventDetail + ", guestList="
+                + guestList + "]";
     }
 
-    
-    
-    
 }
